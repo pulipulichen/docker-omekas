@@ -1,0 +1,53 @@
+# docker-Specify the compose version
+version: "3"
+
+services:
+  app:
+    #Build a Dockerfile in the same directory
+    build: .
+    #Give the container a name(Any)
+    #container_name: 
+
+    # https://stackoverflow.com/a/48730146/6645399
+    #user: "www-data:www-data"
+
+    #You can keep the container running.
+    #tty: true
+    #Mount the files in the directory to the app directory in the container
+    volumes: 
+      #- ./local/omeka-s/config/:/var/www/html/config/
+      - "./local/omeka-s/files:/var/www/html/files:rw"
+      - ./local/log/apache2/:/var/log/apache2/
+      #- ./tmp/:/tmp/files/
+    #environment:
+    #  - url=https://www.google.com.tw/
+    
+    # Mount port 1000 on the container side to port 8080 on the host side.
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+  mysql:
+    image: mysql:8
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql/data:/var/lib/mysql:rw
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: omekas
+      MYSQL_USER: omekas
+      MYSQL_PASSWORD: password
+      #MYSQL_DATABASE: testdb
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin:5
+  #   ports:
+  #     - "8081:8080"
+  #   depends_on:
+  #     - mysql
+  #   environment:
+  #     PMA_HOST: mysql
+  #     PMA_PORT: 3306
