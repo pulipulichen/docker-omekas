@@ -1,6 +1,2 @@
-/local/omeka-s/config/
-!/local/omeka-s/config/index.html
 /local/omeka-s/files/
 !/local/omeka-s/files/index.html
-/local/log/
-/mysql/*

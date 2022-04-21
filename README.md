@@ -16,11 +16,18 @@ docker-compuse up
 Open url
 
 ````
-http://[APACHE-IP]/omeka-s/
+http://[APACHE-IP]/
 ````
+
 
 # Debug
 
 ````
 docker-compose run app bash
 ````
+
+# Configuration
+
+- Default database: omekas
+- Default database user: omekas
+- Default database password: password
